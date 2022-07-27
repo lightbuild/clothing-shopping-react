@@ -1,3 +1,5 @@
+import './categories.style.scss'
+
 const App = () => {
 
   const categories = [
