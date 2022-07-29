@@ -7,17 +7,18 @@ import {
   from "../../utils/firebase/firebase.utils";
 import {useEffect} from "react";
 import {getRedirectResult} from 'firebase/auth'
+import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
 
 const SignIn = () => {
-  useEffect(() => {
-    async function fetchUser(){
-      const response = await getRedirectResult(auth)
-      if (response){
-        const userDocRef = await createUserDocumentFromAuth(response.user)
-      }
-    }
-    fetchUser()
-  },[])
+  // useEffect(() => {
+  //   async function fetchUser(){
+  //     const response = await getRedirectResult(auth)
+  //     if (response){
+  //       const userDocRef = await createUserDocumentFromAuth(response.user)
+  //     }
+  //   }
+  //   fetchUser()
+  // },[])
 
 
   const logGooleUser = async () => {
@@ -32,9 +33,7 @@ const SignIn = () => {
       <button onClick={logGooleUser}>
         Sign in with Goole Popup
       </button>
-      <button onClick={signInWithGooleRedirect}>
-        Sign in with GooleRedict
-      </button>
+      <SignUpForm/>
     </div>
   )
 }
