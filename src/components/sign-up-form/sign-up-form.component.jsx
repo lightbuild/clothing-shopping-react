@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {createAuthUserWithEmailAndPassword,createUserDocumentFromAuth} from '../../utils/firebase/firebase.utils'
 
 const defaultFormFields = {
   displayName: "",
@@ -11,26 +12,45 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const {displayName, email, password, confirmPassword} = formFields
-  console.log(formFields)
-  const handerevent = (event) => {
+
+  const resetFormFields =() =>{
+      setFormFields(defaultFormFields)
+  }
+
+  const handleChange = (event) => {
     const {name, value} = event.target
     setFormFields({...formFields, [name]: value})
+  }
+
+  const handleSubmit = async (event) =>{
+    event.preventDefault()
+    if(password !== confirmPassword){
+      alert("password do not match")
+      return
+    }
+    try {
+      const {user} = await createAuthUserWithEmailAndPassword(email,password)
+      await createUserDocumentFromAuth(user,{displayName})
+      resetFormFields()
+    }catch (error){
+      console.log(error)
+    }
   }
   return (
     <div>
       <h1>Sign up you email and password</h1>
-      <form action="" onSubmit={() => {}}>
+      <form action="" onSubmit={handleSubmit}>
         <label htmlFor="">Display Name</label>
-        <input type='text' required onChange={handerevent} name='displayName' value={displayName}/>
+        <input type='text' required onChange={handleChange} name='displayName' value={displayName}/>
 
         <label htmlFor="">Email</label>
-        <input type='email' required onChange={handerevent} name='email' value={email}/>
+        <input type='email' required onChange={handleChange} name='email' value={email}/>
 
         <label htmlFor="">Password</label>
-        <input type='password' required onChange={handerevent} name='password' value={password}/>
+        <input type='password' required onChange={handleChange} name='password' value={password}/>
 
         <label htmlFor="">Confirm Password</label>
-        <input type='password' required onChange={handerevent} name='confirmPassword' value={confirmPassword}/>
+        <input type='password' required onChange={handleChange} name='confirmPassword' value={confirmPassword}/>
         <button type="submit">
           Sign up
         </button>
