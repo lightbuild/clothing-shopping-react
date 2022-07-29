@@ -1,3 +1,5 @@
+import './sign-up-form.style.scss'
+
 import {useState} from "react";
 import {createAuthUserWithEmailAndPassword,createUserDocumentFromAuth} from '../../utils/firebase/firebase.utils'
 import FormInput from "../form-input/form-input.component";
@@ -37,8 +39,8 @@ const SignUpForm = () => {
     }
   }
   return (
-    <div>
-      <h1>Sign up you email and password</h1>
+    <div className='sign-up-container'>
+      <h2>Sign up you email and password</h2>
       <form action="" onSubmit={handleSubmit}>
         <FormInput label='Display Name'
                    type='text'
