@@ -3,7 +3,7 @@ import './sign-in-form.style.scss'
 import {useState} from "react";
 
 import {
-  createAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   signInWithGooglePopup
 } from '../../utils/firebase/firebase.utils'
@@ -40,6 +40,8 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
+      const response = await signInAuthUserWithEmailAndPassword(email,password)
+      console.log(response)
       resetFormFields()
     } catch (error) {
       console.log(error)
