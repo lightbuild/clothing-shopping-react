@@ -1,4 +1,4 @@
-import './sign-up-form.style.scss'
+import './sign-in-form.style.scss'
 
 import {useState} from "react";
 
@@ -13,22 +13,23 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
 
-
 const defaultFormFields = {
-  displayName: "",
   email: "",
   password: "",
-  confirmPassword: "",
 }
 
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
-  const {displayName, email, password, confirmPassword} = formFields
+  const {email, password} = formFields
 
+  const signInWithGoogle = async () => {
+    const {user} = await signInWithGooglePopup();
+    await createUserDocumentFromAuth(user);
+  }
 
-  const resetFormFields =() =>{
-      setFormFields(defaultFormFields)
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
   }
 
   const handleChange = (event) => {
@@ -36,30 +37,19 @@ const SignUpForm = () => {
     setFormFields({...formFields, [name]: value})
   }
 
-  const handleSubmit = async (event) =>{
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if(password !== confirmPassword){
-      alert("password do not match")
-      return
-    }
     try {
-      const {user} = await createAuthUserWithEmailAndPassword(email,password)
-      await createUserDocumentFromAuth(user,{displayName})
       resetFormFields()
-    }catch (error){
+    } catch (error) {
       console.log(error)
     }
   }
   return (
     <div className='sign-up-container'>
-      <h2>Sign up you email and password</h2>
+      <h2>Alread have an account?</h2>
+      <h2>Sign in with you email and password</h2>
       <form action="" onSubmit={handleSubmit}>
-        <FormInput label='Display Name'
-                   type='text'
-                   required
-                   onChange={handleChange}
-                   name='displayName'
-                   value={displayName}/>
         <FormInput label='Email'
                    type='email'
                    required
@@ -72,19 +62,17 @@ const SignUpForm = () => {
                    onChange={handleChange}
                    name='password'
                    value={password}/>
-        <FormInput label='Confirm Password'
-                   type='password'
-                   required
-                   onChange={handleChange}
-                   name='confirmPassword'
-                   value={confirmPassword}/>
-        <Button type="submit" buttonType='inverted'>
-          Sign up
-        </Button>
-
+        <div className='buttons-container'>
+          <Button type="submit" buttonType='inverted'>
+            Sign In
+          </Button>
+          <Button onClick={signInWithGoogle} buttonType='google'>
+            Googel Sign in
+          </Button>
+        </div>
       </form>
     </div>
   )
 }
 
-export default SignUpForm
+export default SignInForm
