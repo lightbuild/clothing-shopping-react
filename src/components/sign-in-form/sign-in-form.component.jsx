@@ -44,7 +44,16 @@ const SignInForm = () => {
       console.log(response)
       resetFormFields()
     } catch (error) {
-      console.log(error)
+      switch (error.code){
+        case 'auth/wrong-password':
+          alert('not matches the password')
+          break;
+        case 'auth/user-not-found':
+          alert('no user associated with the email')
+          break
+        default:
+          console.log(error)
+      }
     }
   }
   return (
@@ -68,7 +77,7 @@ const SignInForm = () => {
           <Button type="submit" buttonType='inverted'>
             Sign In
           </Button>
-          <Button onClick={signInWithGoogle} buttonType='google'>
+          <Button type="button" onClick={signInWithGoogle} buttonType='google'>
             Googel Sign in
           </Button>
         </div>
