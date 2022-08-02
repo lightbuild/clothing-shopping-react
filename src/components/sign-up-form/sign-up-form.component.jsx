@@ -35,12 +35,15 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) =>{
     event.preventDefault()
+
     if(password !== confirmPassword){
       alert("password do not match")
       return
     }
+
     try {
       const {user} = await createAuthUserWithEmailAndPassword(email,password)
+
       await createUserDocumentFromAuth(user,{displayName})
       resetFormFields()
     }catch (error){
