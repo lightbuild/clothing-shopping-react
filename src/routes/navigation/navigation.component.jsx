@@ -6,6 +6,7 @@ import {UserContext} from "../../context/user.context";
 import {signOutUser} from "../../utils/firebase/firebase.utils";
 
 import CartIcon from '../../components/cart-icon/cart-icon.component'
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.componnet";
 
 import './navigation.styles.scss'
 
@@ -37,6 +38,7 @@ const Navigation = () => {
           }
           <CartIcon />
         </div>
+        <CartDropdown/>
       </div>
       <Outlet/>
     </Fragment>
