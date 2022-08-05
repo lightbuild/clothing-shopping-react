@@ -9,7 +9,7 @@ import {
 
 
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button,{BUTTON_TYPE_CLASS} from "../button/button.component";
 
 
 const defaultFormFields = {
@@ -73,10 +73,13 @@ const SignInForm = () => {
                    name='password'
                    value={password}/>
         <div className='buttons-container'>
-          <Button type="submit" buttonType='inverted'>
+          <Button type="submit"
+                  buttonType={BUTTON_TYPE_CLASS.inverted}>
             Sign In
           </Button>
-          <Button type="button" onClick={signInWithGoogle} buttonType='google'>
+          <Button type="button"
+                  onClick={signInWithGoogle}
+                  buttonType={BUTTON_TYPE_CLASS.google}>
             Googel Sign in
           </Button>
         </div>
