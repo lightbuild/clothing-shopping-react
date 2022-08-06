@@ -49,7 +49,7 @@ const SignInForm = () => {
           break;
         case 'auth/user-not-found':
           alert('no user associated with the email')
-          break
+          break;
         default:
           console.log(error)
       }
