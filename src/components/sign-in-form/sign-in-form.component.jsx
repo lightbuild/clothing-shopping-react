@@ -1,4 +1,4 @@
-import './sign-in-form.style.scss'
+import {SignUpContainer,ButtonContainer}  from './sign-in-form.style'
 
 import {useState} from "react";
 
@@ -56,10 +56,10 @@ const SignInForm = () => {
     }
   }
   return (
-    <div className='sign-up-container'>
+    <SignUpContainer>
       <h2>Alread have an account?</h2>
       <h2>Sign in with you email and password</h2>
-      <form action="" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormInput label='Email'
                    type='email'
                    required
@@ -72,7 +72,7 @@ const SignInForm = () => {
                    onChange={handleChange}
                    name='password'
                    value={password}/>
-        <div className='buttons-container'>
+        <ButtonContainer>
           <Button type="submit"
                   buttonType={BUTTON_TYPE_CLASS.inverted}>
             Sign In
@@ -82,9 +82,9 @@ const SignInForm = () => {
                   buttonType={BUTTON_TYPE_CLASS.google}>
             Googel Sign in
           </Button>
-        </div>
+        </ButtonContainer>
       </form>
-    </div>
+    </SignUpContainer>
   )
 }
 

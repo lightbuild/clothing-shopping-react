@@ -1,4 +1,4 @@
-import './sign-up-form.style.scss'
+import {SignUpContainer} from './sign-up-form.style'
 
 import {useState} from "react";
 
@@ -24,8 +24,8 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const {displayName, email, password, confirmPassword} = formFields
 
-  const resetFormFields =() =>{
-      setFormFields(defaultFormFields)
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
   }
 
   const handleChange = (event) => {
@@ -33,25 +33,25 @@ const SignUpForm = () => {
     setFormFields({...formFields, [name]: value})
   }
 
-  const handleSubmit = async (event) =>{
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if(password !== confirmPassword){
+    if (password !== confirmPassword) {
       alert("password do not match")
       return
     }
 
     try {
-      const {user} = await createAuthUserWithEmailAndPassword(email,password)
+      const {user} = await createAuthUserWithEmailAndPassword(email, password)
 
-      await createUserDocumentFromAuth(user,{displayName})
+      await createUserDocumentFromAuth(user, {displayName})
       resetFormFields()
-    }catch (error){
+    } catch (error) {
       console.log(error)
     }
   }
   return (
-    <div className='sign-up-container'>
+    <SignUpContainer>
       <h2>Sign up you email and password</h2>
       <form action="" onSubmit={handleSubmit}>
         <FormInput label='Display Name'
@@ -81,9 +81,8 @@ const SignUpForm = () => {
         <Button type="submit" buttonType='inverted'>
           Sign up
         </Button>
-
       </form>
-    </div>
+    </SignUpContainer>
   )
 }
 
