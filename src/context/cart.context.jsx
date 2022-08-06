@@ -1,6 +1,5 @@
 import {createContext, useState, useEffect} from 'react'
 
-// import PRODUCTS_DATA from '../shop-data.json'
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItems = cartItems.find((cartItem) => cartItem.id === productToAdd.id)
