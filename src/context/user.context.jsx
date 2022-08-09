@@ -1,6 +1,8 @@
-import {createContext,useEffect,useReducer} from 'react'
+import {createContext, useEffect, useReducer} from 'react'
 
 import {createUserDocumentFromAuth, onAuthStateChangedListener} from '../utils/firebase/firebase.utils'
+
+import {createAction} from "../utils/reducer/reducer.utils";
 
 export const UserContext = createContext({
   currentUser: null,
@@ -8,16 +10,13 @@ export const UserContext = createContext({
 })
 
 export const USER_ACTION_TYPE = {
-  SET_CURRENT_TYPE:'SET_CURRENT_TYPE'
+  SET_CURRENT_TYPE: 'SET_CURRENT_TYPE'
 }
 
-const userReducer = (state,action) =>{
-  console.log('dispatched')
-  console.log('action',action)
-  console.log('state',state)
-  const {type,payload} = action
+const userReducer = (state, action) => {
+  const {type, payload} = action
 
-  switch (type){
+  switch (type) {
     case USER_ACTION_TYPE.SET_CURRENT_TYPE:
       return {
         ...state,
@@ -29,13 +28,13 @@ const userReducer = (state,action) =>{
 }
 
 const INITIAL_USER = {
-  currentUser:null
+  currentUser: null
 }
 
 export const UserProvider = ({children}) => {
-  const [{currentUser},dispatch] = useReducer(userReducer,INITIAL_USER);
-  const setCurrentUser= (user) =>{
-      dispatch({type:USER_ACTION_TYPE.SET_CURRENT_TYPE,payload:user})
+  const [{currentUser}, dispatch] = useReducer(userReducer, INITIAL_USER);
+  const setCurrentUser = (user) => {
+    dispatch(createAction(USER_ACTION_TYPE.SET_CURRENT_TYPE, user))
   }
 
 
@@ -43,7 +42,7 @@ export const UserProvider = ({children}) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
-      if(user){
+      if (user) {
         await createUserDocumentFromAuth(user);
       }
       setCurrentUser(user)
