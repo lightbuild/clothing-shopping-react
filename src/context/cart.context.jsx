@@ -88,7 +88,7 @@ export const CartProvider = ({children}) => {
 
     const newCartTotal = cartItems.reduce((total,carItem) =>{
       return total + carItem.quantity * carItem.price
-    })
+    },0)
 
     const payload = {
       cartItems,

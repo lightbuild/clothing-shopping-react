@@ -61,13 +61,17 @@ export const getCategoriesAndDocuments = async () =>{
   const q = query(colletionRef)
 
   const querySnapshot =await getDocs(q)
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
 
-  return categoryMap;
+  //数据处理逻辑转移到category selector中
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
+
+
+  //   .reduce((acc, docSnapshot) => {
+  //   const { title, items } = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+  // return categoryMap;
 }
 
 
