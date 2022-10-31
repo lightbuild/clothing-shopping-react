@@ -17,7 +17,6 @@ import {NavigationContainer,LogoContainer,NavLinksContainer,NavLink} from './nav
 const Navigation = () => {
   const currentUser = useSelector(selectorCurrentUser)
   const isCartOpen = useSelector(selectIsCartOpen)
-  console.log(isCartOpen)
 
   const signOutHandler = async () => {
     await signOutUser()

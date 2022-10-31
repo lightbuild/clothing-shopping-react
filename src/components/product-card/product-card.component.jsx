@@ -1,7 +1,6 @@
 import {ProductCardContainer,Footer,Name,Price} from './product-card.style'
 import Button,{BUTTON_TYPE_CLASS} from "../button/button.component";
 
-
 import {useDispatch,useSelector} from 'react-redux'
 
 import {addItemToCart} from '../../store/cart/cart.action'
