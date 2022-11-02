@@ -43,24 +43,24 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
 export const db = getFirestore()
 
-export const addCollectionAndDocument = async (collectionKey,objectsToAdd) =>{
-  const colletionRef = collection(db,collectionKey)
+export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
+  const colletionRef = collection(db, collectionKey)
 
   const batch = writeBatch(db)
 
-  objectsToAdd.forEach((object) =>{
-    const docRef = doc(colletionRef,object.title.toLowerCase())
-    batch.set(docRef,object)
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(colletionRef, object.title.toLowerCase())
+    batch.set(docRef, object)
   })
   await batch.commit()
   console.log('done')
 }
 
-export const getCategoriesAndDocuments = async () =>{
-  const colletionRef =collection(db,'categories')
+export const getCategoriesAndDocuments = async () => {
+  const colletionRef = collection(db, 'categories')
   const q = query(colletionRef)
 
-  const querySnapshot =await getDocs(q)
+  const querySnapshot = await getDocs(q)
 
   //数据处理逻辑转移到category selector中
   return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
@@ -75,11 +75,21 @@ export const getCategoriesAndDocuments = async () =>{
 }
 
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
+  if(!userAuth) return;
+
   const userDocRef = doc(db, 'users', userAuth.uid)
   const userSnapshot = await getDoc(userDocRef)
-  //如果用户不存在
-  if (!userSnapshot.exists()) {
+
+  //如果用户存在
+  if(userSnapshot.exists()){
+    return userSnapshot
+  }
+   //如果用户不存在
+  else if (!userSnapshot.exists()) {
     const {displayName, email} = userAuth;
     const createdAt = new Date()
 
@@ -94,8 +104,8 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
       console.log('error creating the user', error.message)
     }
   }
-//如果用户存在
-  return userDocRef
+
+
 }
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -113,15 +123,16 @@ export const signOutUser = async () => await signOut(auth)
 
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback)
 
-export const getCurrentUser =() =>{
-    return new Promise((resolve,reject)=>{
-      const unsubscribe = onAuthStateChanged(
-        auth,
-        (userAuth)=>{
-            unsubscribe();
-            resolve(userAuth)
-        },
-        reject
-      )
-    })
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth)
+      },
+      reject
+    )
+  })
 }

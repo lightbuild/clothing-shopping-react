@@ -9,15 +9,15 @@ import Checkout from "./routes/checkout/checkout.component";
 
 import {useEffect} from "react";
 import {useDispatch} from 'react-redux'
-import {getCurrentUser} from "./utils/firebase/firebase.utils";
 
+import {checUserSession} from "./store/user/user.action";
 
 
 const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getCurrentUser().then((user) =>console.log(user))
+    dispatch(checUserSession());
   }, [dispatch])
 
 
