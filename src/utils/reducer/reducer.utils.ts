@@ -1,10 +1,12 @@
 import {AnyAction} from 'redux';
 
+
 type Matchable<AC extends ()=>AnyAction> = AC & {
   type:ReturnType<AC>['type'];
   match(action:AnyAction):action is ReturnType<AC>;
 }
 
+//withMatcher函数重载，用于给action添加match函数
 export function withMatcher<AC extends ()=> AnyAction & {type:string}>(actionCreator:AC):Matchable<AC>;
 
 export function withMatcher<AC extends (...args:any[])=> AnyAction & {type:string}>(actionCreator:AC):Matchable<AC>
@@ -28,10 +30,10 @@ export type ActionWithPayload<T,P> = {
 export type Action<T> = {
   type:T;
 }
-
+//createAction的函数重载，判断payload参数是否存在
 export function createAction<T extends string, P>(type:T,payload:P):ActionWithPayload<T,P>
 
-export function createAction<T extends string, P>(type:T,payload:void):Action<T>
+export function createAction<T extends string,P>(type:T,payload:void):Action<T>
 
 export function createAction<T extends string,P> (type:T,payload:P){
   return {type,payload}
