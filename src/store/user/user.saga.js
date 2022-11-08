@@ -47,7 +47,7 @@ export function* isUserAuthenticated(){
   }
 }
 
-//使用谷歌帐号登录
+//使用谷歌账号登录
 export function* signInWithGoogle() {
   try {
     const { user } = yield call(signInWithGooglePopup);
@@ -71,7 +71,7 @@ export function* signInWithEmail({payload:{email,password}}){
   }
 }
 
-//注册帐号
+//注册账号
 export function* signUp({payload:{email,password,displayName}}){
   try{
     const {user} =yield call(
