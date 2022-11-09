@@ -17,7 +17,7 @@ export type SignInSuccess = ActionWithPayload<USER_ACTION_TYPE.SIGN_IN_SUCCESS, 
 
 export type SignInFailed = ActionWithPayload<USER_ACTION_TYPE.SIGN_IN_FAILED, Error>
 
-export type SignUpStart = ActionWithPayload<USER_ACTION_TYPE.SIGN_UP_START, { email: string }>
+export type SignUpStart = ActionWithPayload<USER_ACTION_TYPE.SIGN_UP_START, { email: string;password: string;displayName: string}>
 
 export type SignUpSuccess = ActionWithPayload<USER_ACTION_TYPE.SIGN_UP_SUCCESS,
   { user: User; additionalDetails: AdditionalInformation }>
@@ -45,7 +45,7 @@ export const emailSignInStart = withMatcher(
 );
 
 export const signInSuccess = withMatcher(
-  (user: UserData): SignInSuccess => createAction(USER_ACTION_TYPE.SIGN_IN_SUCCESS, user)
+  (user: UserData & {id:string}): SignInSuccess => createAction(USER_ACTION_TYPE.SIGN_IN_SUCCESS, user)
 );
 
 export const signInFailed = withMatcher(
@@ -67,28 +67,28 @@ export const signUpStart = withMatcher(
 
 export const signUpSuccess = withMatcher(
   (
-  user:User,
-  additionalDetails:AdditionalInformation
-):SignUpSuccess =>
-  createAction(USER_ACTION_TYPE.SIGN_UP_SUCCESS, {user, additionalDetails})
+    user: User,
+    additionalDetails: AdditionalInformation
+  ): SignUpSuccess =>
+    createAction(USER_ACTION_TYPE.SIGN_UP_SUCCESS, {user, additionalDetails})
 );
 
 export const signUpFailed = withMatcher(
-  (error:Error):SignUpFailed =>
-  createAction(USER_ACTION_TYPE.SIGN_UP_FAILED, error)
+  (error: Error): SignUpFailed =>
+    createAction(USER_ACTION_TYPE.SIGN_UP_FAILED, error)
 );
 
 export const signOutStart = withMatcher(
-  ():SignOutStart =>
-  createAction(USER_ACTION_TYPE.SIGN_OUT_START)
+  (): SignOutStart =>
+    createAction(USER_ACTION_TYPE.SIGN_OUT_START)
 );
 
 export const signOutSuccess = withMatcher(
-  ():SignOutSuccess =>
-  createAction(USER_ACTION_TYPE.SIGN_OUT_SUCCESS)
+  (): SignOutSuccess =>
+    createAction(USER_ACTION_TYPE.SIGN_OUT_SUCCESS)
 );
 
 export const signOutFailed = withMatcher(
-  (error:Error):SignOutFailed =>
-  createAction(USER_ACTION_TYPE.SIGN_OUT_FAILED, error)
+  (error: Error): SignOutFailed =>
+    createAction(USER_ACTION_TYPE.SIGN_OUT_FAILED, error)
 );

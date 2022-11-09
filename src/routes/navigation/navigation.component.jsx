@@ -1,7 +1,7 @@
 import {Fragment} from 'react'
 import {Outlet} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux'
-import {selectorCurrentUser} from "../../store/user/user.selector";
+import {selectCurrentUser} from "../../store/user/user.selector";
 
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg'
 import {signOutStart} from '../../store/user/user.action'
@@ -15,7 +15,7 @@ import {NavigationContainer,LogoContainer,NavLinksContainer,NavLink} from './nav
 
 
 const Navigation = () => {
-  const currentUser = useSelector(selectorCurrentUser)
+  const currentUser = useSelector(selectCurrentUser)
   const isCartOpen = useSelector(selectIsCartOpen)
   const dispatch = useDispatch()
 
