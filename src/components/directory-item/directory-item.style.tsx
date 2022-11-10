@@ -1,13 +1,17 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const BackgoundImage = styled.div`
+type BackgoundImageProps = {
+  imageUrl: string;
+}
+
+export const BackgoundImage = styled.div<BackgoundImageProps>`
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
 
   background-image: ${({imageUrl}) => `url(${imageUrl})`};
-`
+`;
 
 export const DirectotyBodyContainer = styled.div`
   height: 90px;
@@ -33,7 +37,7 @@ export const DirectotyBodyContainer = styled.div`
     font-weight: lighter;
     font-size: 16px;
   }
-`
+`;
 export const DirectoryContainer = styled.div`
   min-width: 30%;
   height: 240px;
@@ -57,7 +61,7 @@ export const DirectoryContainer = styled.div`
       opacity: 0.9;
     }
   }
-  
+
   &:first-child {
     margin-right: 7.5px;
   }
@@ -65,5 +69,5 @@ export const DirectoryContainer = styled.div`
   &:last-child {
     margin-left: 7.5px;
   }
-`
+`;
 

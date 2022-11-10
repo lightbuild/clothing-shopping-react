@@ -1,3 +1,4 @@
+import {FC} from 'react'
 import {ProductCardContainer,Footer,Name,Price} from './product-card.style'
 import Button,{BUTTON_TYPE_CLASS} from "../button/button.component";
 
@@ -6,7 +7,13 @@ import {useDispatch,useSelector} from 'react-redux'
 import {addItemToCart} from '../../store/cart/cart.action'
 import {selectCartItems} from '../../store/cart/cart.selector'
 
-const ProductCard = ({product}) =>{
+import {CategoryItem} from '../../store/categories/categories.types';
+
+type ProductCardProps = {
+    product:CategoryItem
+}
+
+const ProductCard:FC<ProductCardProps> = ({product}) =>{
     const {name,price,imageUrl} = product
 
     const dispatch = useDispatch()

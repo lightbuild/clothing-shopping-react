@@ -11,7 +11,7 @@ import {selectIsCartOpen} from "../../store/cart/cart.selector";
 import CartIcon from '../../components/cart-icon/cart-icon.component'
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.componnet";
 
-import {NavigationContainer,LogoContainer,NavLinksContainer,NavLink} from './navigation.styles.js'
+import {NavigationContainer,LogoContainer,NavLinksContainer,NavLink} from './navigation.style'
 
 
 const Navigation = () => {
