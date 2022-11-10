@@ -1,7 +1,7 @@
 import {SignUpContainer} from './sign-up-form.style'
 import {useDispatch} from "react-redux";
 
-import {useState} from "react";
+import {useState,FormEvent, ChangeEvent} from "react";
 
 import {signUpStart} from "../../store/user/user.action";
 
@@ -27,12 +27,12 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields)
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target
     setFormFields({...formFields, [name]: value})
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (password !== confirmPassword) {
@@ -75,7 +75,7 @@ const SignUpForm = () => {
                    onChange={handleChange}
                    name='confirmPassword'
                    value={confirmPassword}/>
-        <Button type="submit" buttonType='inverted'>
+        <Button type="submit">
           Sign up
         </Button>
       </form>
