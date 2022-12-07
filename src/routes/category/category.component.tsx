@@ -1,5 +1,5 @@
-import {CategoryContainer, CategoryTitle} from './category.style';
-import {Fragment, useState, useEffect} from 'react';
+import {CatergoryContainer,ProductContainer, CategoryTitle} from './category.style';
+import {useState, useEffect} from 'react';
 
 import {useParams} from 'react-router-dom';
 
@@ -29,18 +29,18 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   return (
-    <Fragment>
+    <CatergoryContainer>
       <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
       {isLoading ? (
         <Spinner/>
       ) : (
-        <CategoryContainer>
+        <ProductContainer>
           {products && products.map((product) => (
             <ProductCard key={product.id} product={product}/>
           ))}
-        </CategoryContainer>
+        </ProductContainer>
       )}
-    </Fragment>
+    </CatergoryContainer>
   );
 };
 
